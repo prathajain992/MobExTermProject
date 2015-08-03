@@ -7,7 +7,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <jsp:useBean id="image" class="phonestore.other.GetImage" scope="session"/>
 
 <%  Class.forName("com.mysql.jdbc.Driver");
