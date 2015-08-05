@@ -1,4 +1,4 @@
-
+ 
 package phonestore.controller;
 
 import java.io.IOException;
@@ -36,8 +36,7 @@ public class UserAddressUpdateServlet extends HttpServlet{
         boolean check = user.updateUserAddress(loginId, userAddress);
         
         if(check){
-            out.println("<h3>Address Updated</h3>");
-            out.println("<a href=\"UserAccountSettings.jsp\">Account settings</a>");
+            resp.sendRedirect("UserAccountSettings.jsp");
         }
         else{
             out.println("<h3>Address NOT Updated</h3>");

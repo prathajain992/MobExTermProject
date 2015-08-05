@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package phonestore.controller;
 
 import java.io.IOException;
@@ -29,8 +34,7 @@ public class UserRegisterServlet extends HttpServlet{
         boolean check = user.registerUser();
         
         if(check){
-            out.println("<h2>USER CREATED</h2>");
-            out.println("<a href=\"UserLoginRegister.jsp\">Got to Login Page</a>");
+            resp.sendRedirect("UserLoginRegister.jsp");
         }
         else{
             out.println("<h2>USER ALREADY EXISTS</h2>");

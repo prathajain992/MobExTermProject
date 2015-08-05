@@ -3,6 +3,7 @@
     Author     : pratha
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -10,6 +11,7 @@
 <jsp:useBean id="dbconn" class="phonestore.other.DB_Conn" scope="session"/>
 
 <%
+    
     String loginId="";
     
     String phoneId="";
@@ -30,9 +32,6 @@
     }
     
     Connection con = dbconn.getConnection();
-    PreparedStatement st = con.prepareStatement("SELECT * FROM cart_items WHERE login_id=? AND purchased=?");
-    st.setString(1, loginId);
-    st.setString(2, "YES");
     
     //get userdetails for the bill
     String name=null;
@@ -75,6 +74,8 @@
         <title>Phone Store Order Receipt</title>
     </head>
     <body>
+        <div align="center"><img src="css/images/logo.png" width="250"/></div>
+        <br><hr><br>
         <h1>Order Successful, Here is your order receipt!</h1>
         <table>
             <tr>
@@ -89,6 +90,7 @@
                  <td><%=address%></td>
             </tr>
         </table>
+            <br><hr><br>
         
         <table border="1" align="center" width="90%">
             <tr>
@@ -106,10 +108,12 @@
                 </th>
             </tr>
             <%
-            ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                phoneId = rs.getString("phone_id");
-                phoneCartQty = rs.getInt("phone_qty");
+            ArrayList<String> phoneIdList = (ArrayList)session.getAttribute("phoneIdList");
+            ArrayList<Integer> phoneCartQtyList = (ArrayList)session.getAttribute("phoneCartQtyList");
+            
+            for(int i=0; i<phoneIdList.size(); i++){
+                phoneId = phoneIdList.get(i);
+                phoneCartQty = phoneCartQtyList.get(i);
                 
                 
                 PreparedStatement st1 = con.prepareStatement("SELECT * FROM phone WHERE phone_id=?");

@@ -11,40 +11,33 @@
         <title>Search Header</title>
     </head>
     <body>
-    <center>
-        <form action="result.jsp" method="post" id="searchform">
-        <table>
-            <tr>
-                <td>
-                    <select name="phoneCategory" form="searchform">
-                        <option value="default">Category</option>
-                        <option value="ancient">Ancient Phones</option>
-                        <option value="multimedia">Multi Media</option>
-                        <option value="smartphone">Smart Phones</option>
-                        <option value="tablet">Tabs</option>
-                        <option value="smartwatch">Smart Watches</option>
-                    </select>
-                </td>
-             
-                <td>
-                    <input type="search" name="searchKeyword" size="100"/>
-                </td>
-                <td>
-                    <input type="submit" name="search" value="Go"/>
-                </td>
-            </form>
-                <td>
-                    <select name="resultSort">
-                        <option value="default">Sort By</option>
-                        <option value="asc">A - Z</option>
-                        <option value="desc">Z - A</option>
-                        <option value="LtoH">Low to High</option>
-                        <option value="HtoL">High to Low</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        
-    </center>
+        <!-- Search -->
+      <div class="box search">
+        <h2>Search by <span></span></h2>
+        <div class="box-content">
+          <form action="result.jsp" method="post" id="searchform">
+            <label>Keyword</label>
+            <input type="text" class="field" name="searchKeyword"/>
+            
+            <label>Category</label>
+            <select class="field" name="phoneCategory" form="searchform">
+                <option value="default">--Select Category--</option>
+                <option value="ancient">Ancient Phones</option>
+                <option value="multimedia">Multi Media</option>
+                <option value="smartphone">Smart Phones</option>
+                <option value="tablet">Tabs</option>
+                <option value="smartwatch">Smart Watches</option>
+            </select>
+            
+            <input type="submit" class="search-submit" value="Search" />
+            <p> 
+              <a href="#" class="bul">Contact Customer Support</a> </p>
+          </form>
+        </div>
+      </div>
+      <!-- End Search -->
+
     </body>
 </html>
+
+

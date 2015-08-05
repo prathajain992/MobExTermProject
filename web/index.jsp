@@ -14,6 +14,7 @@
     
     String phoneId="";
     String phoneName="";
+    String phoneCompany="";
     Double phonePrice=0.0;
     String phoneSummary="";
     int phoneQty=0;
@@ -35,25 +36,33 @@
 
 
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MobEx</title>
+    <link rel="shortcut icon" href="css/images/favicon.ico" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <!--[if lte IE 6]><link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" /><![endif]-->
+    <script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
+    <script src="js/jquery-func.js" type="text/javascript"></script>
+</head>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>index</title>
-    </head>
-    <body>
-        <%
+
+<body>
+<!-- Shell -->
+<div class="shell">
+
+    <%
     
         if(check){
             if(loginId != null){
             %>
             <div align="right">
                 Welcome, <%=loginId%>
-                <img src="getuserimage.jsp?userId=<%=loginId%>" width="50" border="0"/>
+                <img src="getuserimage.jsp?userId=<%=loginId%>" width="25" border="0"/>
             </div>
-            <div align="right"><a href="UserCart.jsp">Your Cart</a></div>
-            <div align="right"><a href="UserAccountSettings.jsp">Account Settings</a></div>
             <div align="right"><a href="Logout.jsp">Logout</a></div>
             <%
             }
@@ -73,132 +82,64 @@
             <%
         }
         %>
-
-        <%@include file="searchheader.jsp" %>
-        <%@include file="filter.jsp" %>
-     
-        
-        
-        
-        
-    <center>
-        
-        
-        <%
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/phonestore", "root", "");
     
-        PreparedStatement st = con.prepareStatement("SELECT * FROM phone");
-
-        ResultSet rs = st.executeQuery();
-
-        while(rs.next()){
-            phoneId = rs.getString("phone_id");
-            phoneName = rs.getString("phone_name");
-            phonePrice = rs.getDouble("phone_price");
-            phoneSummary = rs.getString("phone_summary");
-            phoneQty = rs.getInt("phone_qty");
-
-        %>
-        
-        
-        <table border="1">
-            <tr>
-                <td rowspan="3">
-                    <a href="PhonePage.jsp?phoneId=<%=phoneId%>">
-                    <img src="getphoneimage.jsp?phoneId=<%=phoneId%>" width="115" border="0"/>
-                    </a>
-                </td>
-                <td colspan="2"><%=phoneName%></td>
-            </tr>
-            <tr>
-                <td><%=phonePrice%></td>
-                <td>
-                    <%
-                    if(phoneQty>0){
-                    %>
-                    <a href="AddToCart.jsp?phoneId=<%=phoneId%>">Add to cart</a>
-                    <%}
-                    else{%>
-                    
-                    Sold Out
-                    <%}%>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><%=phoneSummary%></td>
-            </tr>
-        </table>
-        
-            <br>
-        <%
-        }
-        %>
-        
-        
-        
-        
-    </center>
-    </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Shop Around</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-<!--[if lte IE 6]><link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" /><![endif]-->
-<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
-<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
-<script src="js/jquery-func.js" type="text/javascript"></script>
-</head>
-<body>
-<!-- Shell -->
-<div class="shell">
-<div align="right">Logout</div>
+    
+    
   <!-- Header -->
   <div id="header">
-    <h1 id="logo"><a href="#">shoparound</a></h1>
+    <h1 id="logo"><a href="index.jsp">mobiex</a></h1>
+    
+    
+    
     
     <!-- Cart -->
     <div id="cart">
-     <a href="#" class="cart-link">Your Shopping Cart</a>
+        
+        
+        <%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <a href="UserCart.jsp" class="cart-link">Your Cart</a>
+        <%
+            }
+        }%>
+            
       <div class="cl">&nbsp;</div>
-      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong>$250.99</strong></span> </div>
+      <span> <strong></strong></span> &nbsp;&nbsp; <span> <strong></strong></span> </div>
     <!-- End Cart -->
+    
+    
+    
+    
     
     
     <!-- Navigation -->
     <div id="navigation">
       <ul>
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">My Account</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="index.jsp" class="active">Home</a></li>
+        <li><a href="support.jsp">Support</a></li>
+        <%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <li><a href="UserAccountSettings.jsp">My Account</a></li>
+        <%
+            }
+        }%>
+        <li><a href="contact.jsp">Contact</a></li>
       </ul>
     </div>
     <!-- End Navigation -->
-  </div>
-  <!-- End Header -->
+  
+  
+  </div><!-- End Header -->
+  
+  
+  
+  
   <!-- Main -->
   <div id="main">
     <div class="cl">&nbsp;</div>
@@ -222,122 +163,94 @@
       
       
       
-      <!-- Products -->
+      
+      
+      
+      
+      
+        <!-- Products -->
       <div class="products">
         <div class="cl">&nbsp;</div>
         <ul>
         
+            
+            
+            
+        <%
+        int counter=0;
         
         
-          <li> <a href="#"><img src="css/images/big1.jpg" alt="" /></a>
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/phonestore", "root", "");
+    
+        PreparedStatement st = con.prepareStatement("SELECT * FROM phone");
+
+        ResultSet rs = st.executeQuery();
+
+        while(rs.next()){
+            phoneId = rs.getString("phone_id");
+            phoneName = rs.getString("phone_name");
+            phonePrice = rs.getDouble("phone_price");
+            phoneSummary = rs.getString("phone_summary");
+            phoneCompany = rs.getString("phone_company");
+            
+            if(phoneSummary==""){phoneSummary="Summary not available";}
+            
+            phoneQty = rs.getInt("phone_qty");
+            
+        %>
+        
+        
+            <li> <a href="PhonePage.jsp?phoneId=<%=phoneId%>"><img src="getphoneimage.jsp?phoneId=<%=phoneId%>" width="200" border="0"/></a>
             <div class="product-info">
-              <h3>LOREM IPSUM</h3>
+              <h3><%=phoneCompany%> <%=phoneName%></h3>
               <div class="product-desc">
-                <h4>WOMEN’S</h4>
-                <p>Lorem ipsum dolor sit<br />
-                  amet</p>
-                <strong class="price">$58.99</strong> </div>
+                <h4><%
+                    if(phoneQty>0){
+                    %>
+                    <a href="AddToCart.jsp?phoneId=<%=phoneId%>">Add to cart</a>
+                    <%}
+                    else{%>
+                    
+                    Sold Out
+                    <%}%></h4>
+                <p><%=phoneSummary%></p>
+                <strong class="price">$<%=phonePrice%></strong> </div>
             </div>
           </li>
-          
+          <%
+          counter++;
+          while(counter==4){%>
+             <br> 
+         <%
+              counter=1;
+          }
+        }
+        %>
           
           
         </ul>
         <div class="cl">&nbsp;</div>
       </div>
       <!-- End Products -->
+    
     </div>
     <!-- End Content -->
+    
+    
     <!-- Sidebar -->
     <div id="sidebar">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <!-- Search -->
-      <div class="box search">
-        <h2>Search by <span></span></h2>
-        <div class="box-content">
-          <form action="#" method="post">
-            <label>Keyword</label>
-            <input type="text" class="field" />
-            <label>Category</label>
-            <select class="field">
-              <option value="">-- Select Category --</option>
-            </select>
-            <div class="inline-field">
-              <label>Price</label>
-              <select class="field small-field">
-                <option value="">$10</option>
-              </select>
-              <label>to:</label>
-              <select class="field small-field">
-                <option value="">$50</option>
-              </select>
-            </div>
-            <input type="submit" class="search-submit" value="Search" />
-            <p> 
-              <a href="#" class="bul">Contact Customer Support</a> </p>
-          </form>
-        </div>
-      </div>
-      <!-- End Search -->
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-            
-      
-      
+     
+      <!-- Search--> <%@include file="searchheader.jsp" %><!-- End Search -->
       
     </div>
     <!-- End Sidebar -->
+    
+    
     <div class="cl">&nbsp;</div>
   </div>
   <!-- End Main -->
   <!-- Side Full -->
   <div class="side-full">
-    
-    
-    
-    
-    <!-- More Products -->
-    <div class="more-products">
-      <div class="more-products-holder">
-        <ul>
-          <li><a href="#"><img src="css/images/small1.jpg" alt="" /></a></li>
-          
-        </ul>
-      </div>
-      <div class="more-nav"> <a href="#" class="prev">previous</a> <a href="#" class="next">next</a> </div>
-    </div>
-    <!-- End More Products -->
-    
-    
-    
-    
-    
-    
-   
-   
-    
-    
     
     
   </div>
@@ -349,18 +262,23 @@
   <!-- Footer -->
   <div id="footer">
     <p class="left">
-     	<a href="#">Home</a> 
+     	<a href="index.jsp">Home</a> 
     <span>|</span> 
-    	<a href="#">Support</a> 
+    	<a href="support.jsp">Support</a> 
     <span>|</span> 
-    	<a href="#">My Account</a> 
-    <span>|</span> 
-    	<a href="#">The Store</a> 
-    <span>|</span> 
-    	<a href="#">Contact</a> 
+    	<%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <a href="UserAccountSettings.jsp">My Account</a><span>|</span> 
+        <%
+            }
+        }%>
+    	<a href="contact.jsp">Contact</a> 
     </p>
     
-    <p class="right"> Copyright @ pratha 2015</p>
+    <p class="right"> Copyright @ Pratha Jain 2015</p>
   </div>
   <!-- End Footer -->
 

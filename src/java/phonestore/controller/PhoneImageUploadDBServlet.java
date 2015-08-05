@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package phonestore.controller;
 
 import java.io.IOException;
@@ -50,11 +54,7 @@ public class PhoneImageUploadDBServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
         
         if(check){
-            out.println("<center>");
-            out.println("<h3>SUCCESS: Product Image Uploaded.</h3>");
-            out.println("<a href=\"ManageProducts.jsp\">Manage Products</a>");
-            out.println("<a href=\"AdminHome.jsp\">Home</a>");
-            out.println("</center>");
+            resp.sendRedirect("ManageProducts.jsp");
         }
         else{
             out.println("<center>");
@@ -65,8 +65,7 @@ public class PhoneImageUploadDBServlet extends HttpServlet{
         }
         
         
-        out.println(phoneId);
-        out.println(inputStream);
+       
     }
     
     

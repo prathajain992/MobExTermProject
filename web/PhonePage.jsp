@@ -62,49 +62,187 @@
     
 %>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Phone Page</title>
-    </head>
-    <body>
-        <%@include file="searchheader.jsp" %>
-        <div align="right">
-            <%
-                if(!check){
-            %>
-            <a href="UserLoginRegister.jsp">Login/Register</a>
-            <%
-                }
-                else{
+
+
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%  //boolean check = false;
+    //String loginId =null;
+    String adminEmail =null;
+    
+//    String phoneId="";
+//    String phoneName="";
+//    String phoneCompany="";
+    Double phonePrice=0.0;
+//    String phoneSummary="";
+//    int phoneQty=0;
+    
+    
+    
+    
+    if(session.getAttribute("loginId")!= null || session.getAttribute("adminEmail") != null){
+        check = true;
+        loginId = (String)session.getAttribute("loginId");
+        adminEmail = (String)session.getAttribute("adminEmail");
+    }
+    
+    
+    Class.forName("com.mysql.jdbc.Driver");
+    
+%>
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MobEx</title>
+    <link rel="shortcut icon" href="css/images/favicon.ico" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <!--[if lte IE 6]><link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" /><![endif]-->
+    <script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
+    <script src="js/jquery-func.js" type="text/javascript"></script>
+</head>
+
+
+<body>
+<!-- Shell -->
+<div class="shell">
+
+    <%
+    
+        if(check){
+            if(loginId != null){
             %>
             <div align="right">
                 Welcome, <%=loginId%>
-                <img src="getuserimage.jsp?userId=<%=loginId%>" width="50" border="0"/>
+                <img src="getuserimage.jsp?userId=<%=loginId%>" width="25" border="0"/>
             </div>
-            <div align="right"><a href="UserCart.jsp">Your Cart</a></div>
-            <div align="right"><a href="UserAccountSettings.jsp">Account Settings</a></div>
             <div align="right"><a href="Logout.jsp">Logout</a></div>
             <%
-                }
+            }
+            if(adminEmail != null){
             %>
-        </div>
-        <h1>Phone Page</h1>
-        <div>
-            <img src="getphoneimage.jsp?phoneId=<%=phoneId%>" width="115" border="0"/>
-        </div>
-        <div>
-            Company: <%=phoneCompany%>
-        </div>
-        <div>
-            Name: <%=phoneName%>
-        </div>
-        <div>
-            Price: <%=price%>
-        </div>
-        <div>
+            <div align="right">Welcome, <%=adminEmail%></div>
+            <div align="right"><a href="AdminHome.jsp">Admin Home</a></div>
+            <div align="right"><a href="Logout.jsp">Logout</a></div>
+            
             <%
+            }
+        }
+        else{
+            %>
+            <div align="right"><a href="UserLoginRegister.jsp">Login/Register</a></div>
+            <div align="right"><a href="AdminLogin.jsp">Administrator Login</a></div>
+            <%
+        }
+        %>
+    
+    
+    
+  <!-- Header -->
+  <div id="header">
+    <h1 id="logo"><a href="index.jsp">mobiex</a></h1>
+    
+    
+    
+    
+    <!-- Cart -->
+    <div id="cart">
+        
+        
+        <%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <a href="UserCart.jsp" class="cart-link">Your Cart</a>
+        <%
+            }
+        }%>
+            
+      <div class="cl">&nbsp;</div>
+      <span> <strong></strong></span> &nbsp;&nbsp; <span> <strong></strong></span> </div>
+    <!-- End Cart -->
+    
+    
+    
+    
+    
+    
+    <!-- Navigation -->
+    <div id="navigation">
+      <ul>
+        <li><a href="index.jsp">Home</a></li>
+        <li><a href="support.jsp">Support</a></li>
+        <%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <li><a href="UserAccountSettings.jsp">My Account</a></li>
+        <%
+            }
+        }%>
+        <li><a href="contact.jsp">Contact</a></li>
+      </ul>
+    </div>
+    <!-- End Navigation -->
+  
+  
+  </div><!-- End Header -->
+  
+  
+  
+  
+  <!-- Main -->
+  <div id="main">
+    <div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+     
+     
+      <!-- Content Slider -->
+      <div id="slider" class="box">
+        <div id="slider-holder">
+          <ul>
+            <li><a href="#"><img src="css/images/slide1.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slide2.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slide1.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slide2.jpg" alt="" /></a></li>
+          </ul>
+        </div>
+        <div id="slider-nav"> <a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> </div>
+      </div>
+      <!-- End Content Slider -->
+      
+      
+      
+      <!--Phone details-->
+      
+      <table width="60%">
+          <tr>
+              <td rowspan="6"><h3><img src="getphoneimage.jsp?phoneId=<%=phoneId%>" width="200" border="1"/></h3></td>
+              
+          </tr>
+          <tr>
+              <td><h3>Company: <%=phoneCompany%></h3></td>
+          </tr>
+          <tr>
+              <td><h3>Name: <%=phoneName%></h3></td>
+          </tr>
+          <tr>
+              <td><h3>Price: $<%=price%></h3></td>
+          </tr>
+          <tr>
+              <td><h3>
+                  <%
                 if(phoneQty>0){
             %>
              Available in Stock<br>
@@ -130,44 +268,49 @@
                 
                 }
             %>
-        </div>
+                  </h3></td>
+          </tr>
+          <tr>
+              <td><h3>Summary: <%=phoneSummary%></h3></td>
+          </tr>
+      </table>
+      
+      
+      
         <div>
-            Summary: <%=phoneSummary%>
-        </div>
-        <div>
-            Specifications:
-            <table>
+            <h2>Specifications:</h2>
+            <table width="60%"  cellspacing="20">
                 <tr>
-                    <td>Name</td>
-                    <td><%=phoneName%></td>
+                    <th><h2>Name</h2></th>
+                    <td><h2><%=phoneName%></h2></td>
                 </tr>
                 <tr>
-                    <td>Screen</td>
-                    <td><%=screenSize%></td>
+                    <th><h2>Screen</h2></th>
+                    <td><h2><%=screenSize%></h2></td>
                 </tr>
                 <tr>
-                    <td>RAM</td>
-                    <td><%=ram%></td>
+                    <th><h2>RAM</h2></th>
+                    <td><h2><%=ram%></h2></td>
                 </tr>
                 <tr>
-                    <td>ROM</td>
-                    <td><%=rom%></td>
+                    <th><h2>ROM</h2></th>
+                    <td><h2><%=rom%></h2></td>
                 </tr>
                 <tr>
-                    <td>Processor</td>
-                    <td><%=processor%></td>
+                    <th><h2>Processor</h2></th>
+                    <td><h2><%=processor%></h2></td>
                 </tr>
                 <tr>
-                    <td>Primary Camera</td>
-                    <td><%=priCamera%></td>
+                    <th><h2>Primary Camera</h2></th>
+                    <td><h2><%=priCamera%></h2></td>
                 </tr>
                 <tr>
-                    <td>Secondary Camera</td>
-                    <td><%=secCamera%></td>
+                    <th><h2>Secondary Camera</h2></th>
+                    <td><h2><%=secCamera%></h2></td>
                 </tr>
                 <tr>
-                    <td>OS</td>
-                    <td><%=os%></td>
+                    <th><h2>Operating System</h2></th>
+                    <td><h2><%=os%></h2></td>
                 </tr>
             </table>
         </div>
@@ -186,6 +329,8 @@
             }
             %>
         </div>
+        
+        
         <div>
             <%
             String username=null;
@@ -217,7 +362,18 @@
                         while(rsUser2.next()){
                             username = rsUser2.getString("user_name");
             %>
-                    show review:<%=review%> ;with username:<%=username%>
+                    
+                    <table cellspacing="10">
+                        <tr>
+                            <td><div style="text-align:center; height:20px; width:200px; color:#FFF; background-color: #8b0000; font-size:20px;"><%=username%></div></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><div style=" width:200px; color:#FFF; background-color: #b84d4d; font-size:16px;"><%=review%></div></td>
+                        </tr>
+                    </table>
+                    
+                    
             <%
                         }
                     }
@@ -226,7 +382,20 @@
                     while(rsUser.next()){
                         username = rsUser.getString("user_name");
             %>
-                    show review:<%=review%> ;with username:<%=username%>
+                    
+                    
+                    <table cellspacing="10">
+                        <tr>
+                            <td><div style="text-align:center; height:20px; width:200px; color:#FFF; background-color: #8b0000; font-size:20px;"><%=username%></div></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><div style=" width:200px; color:#FFF; background-color: #b84d4d; font-size:16px;"><%=review%></div></td>
+                        </tr>
+                    </table>
+                    
+                    
+                    
             <%
                     }
                 }
@@ -234,5 +403,68 @@
             }
             %>
         </div>
-    </body>
+      
+      
+      
+      
+      
+      <!--End Phone details-->
+      
+      
+    </div>
+    <!-- End Content -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+      
+      
+        
+    <!-- Search--> <%@include file="searchheader.jsp" %><!-- End Search -->
+      
+            
+      
+      
+      
+    </div>
+    <!-- End Sidebar -->
+    <div class="cl">&nbsp;</div>
+  </div>
+  <!-- End Main -->
+  <!-- Side Full -->
+  <div class="side-full">
+    
+    
+  </div>
+  <!-- End Side Full -->
+  
+  
+  
+  
+  <!-- Footer -->
+  <div id="footer">
+    <p class="left">
+     	<a href="index.jsp">Home</a> 
+    <span>|</span> 
+    	<a href="support.jsp">Support</a> 
+    <span>|</span> 
+    	<%
+    
+        if(check){
+            if(loginId != null){
+        %>
+            <a href="UserAccountSettings.jsp">My Account</a><span>|</span> 
+        <%
+            }
+        }%>
+    	<a href="contact.jsp">Contact</a> 
+    </p>
+    
+    <p class="right"> Copyright @ Pratha Jain 2015</p>
+  </div>
+  <!-- End Footer -->
+
+
+
+</div>
+<!-- End Shell -->
+<div align=center>&nbsp;</div></body>
 </html>

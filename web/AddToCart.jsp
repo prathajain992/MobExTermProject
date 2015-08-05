@@ -54,12 +54,14 @@
                     int row1 = st2.executeUpdate();
                     if(row1>0){
                         out.print("Item added to cart");
+                        response.sendRedirect("index.jsp");
                     }
                 }
             
         }
         else{
             out.println("Item not added to cart");
+            response.sendRedirect("index.jsp");
         }
     }
 %>

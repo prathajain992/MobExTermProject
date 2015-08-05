@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package phonestore.controller;
 
 import java.io.IOException;
@@ -31,8 +35,7 @@ public class UserContactUpdateServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
         
         if(check){
-            out.println("<h3>Contact Number Updated</h3>");
-            out.println("<a href=\"UserAccountSettings.jsp\">Account settings</a>");
+           resp.sendRedirect("UserAccountSettings.jsp");
         }
         else{
             out.println("<h3>Contact Number NOT Updated</h3>");

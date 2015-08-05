@@ -41,7 +41,7 @@ public class AddtoCartServlet extends HttpServlet{
         
         if(check){
             out.println("Item added to cart");
-            out.println("<a href=\"index.jsp\">continue shopping</a>");
+            resp.sendRedirect("index.jsp");
         }
         else{
             out.println("Sorry! Item could not be added to cart");
